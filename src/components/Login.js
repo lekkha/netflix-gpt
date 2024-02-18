@@ -3,9 +3,15 @@ import Header from "./Header"
 const Login = () => {
 
     const [isSignInForm, setIsSignInForm] = useState(true);
+    const handleButtonClick = () => {
+        //validate the form data
+
+    }
+
     const toggleSignInForm = () => {
         setIsSignInForm(!isSignInForm)
     }
+
     return (
         <div>
             <Header />
@@ -38,6 +44,7 @@ const Login = () => {
 
                 <button
                     className="p-2 my-6 bg-red-700 w-full"
+                    onClick={handleButtonClick}
                 >
                     {isSignInForm ? "Sign In" : "Sign Up"}
                 </button>
