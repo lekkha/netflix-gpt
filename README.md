@@ -8,6 +8,8 @@
 - SignUp form (converting the same login form to signup form on-click)
 - form validation
 - useRef hook
+- firebase setup
+- deploying our app to production
 
 # Features
 
