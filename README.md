@@ -4,6 +4,7 @@
 - configured TailwindCSS
 - built header
 - built login form
+- SignUp form (converting the same login form to signup form on-click)
 
 # Features
 
