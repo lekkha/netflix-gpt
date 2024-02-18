@@ -1,11 +1,19 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import Header from "./Header"
-const Login = () => {
+import { checkValidData } from "../utils/validate";
 
+
+const Login = () => {
     const [isSignInForm, setIsSignInForm] = useState(true);
+
+    const email = useRef(null)
+    const password = useRef(null)
     const handleButtonClick = () => {
         //validate the form data
-
+        console.log(email.current.value);
+        console.log(password.current.value);
+        const message = checkValidData(email.current.value, password.current.value);
+        console.log(message);
     }
 
     const toggleSignInForm = () => {
@@ -22,7 +30,7 @@ const Login = () => {
                     alt="bg"
                 />
             </div>
-            <form className="w-4/12 absolute p-12 bg-black text-white my-28 mx-auto left-0 right-0 rounded-lg bg-opacity-85">
+            <form onSubmit={(e) => e.preventDefault()} className="w-4/12 absolute p-12 bg-black text-white my-28 mx-auto left-0 right-0 rounded-lg bg-opacity-85">
                 <h1
                     className="font-bold text-3xl py-4"
                 >
@@ -34,10 +42,12 @@ const Login = () => {
                     placeholder="Name"
                     type="text" />}
                 <input
+                    ref={email}
                     className="p-2 mt-4 w-full bg-neutral-700"
                     placeholder="Email"
                     type="text" />
                 <input
+                    ref={password}
                     className="p-2 mt-3 mb-4 w-full bg-neutral-700"
                     placeholder="Password"
                     type="password" />
