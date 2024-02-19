@@ -19,6 +19,8 @@
 - bugFix : sign up user displayName and profile picture update
 - BugFix : if the user is not logged in redirect /borwse to login page and vice versa
 - unsubscribed to the AuthStateChange call back
+- register tmdb API and create an app and get access token
+- get data from tmdb now playing movies list
 
 # Features
 
