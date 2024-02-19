@@ -16,6 +16,9 @@
 - implemented signout
 - implemented update profile api call
 - fetch movie from tmdb
+- bugFix : sign up user displayName and profile picture update
+- BugFix : if the user is not logged in redirect /borwse to login page and vice versa
+- unsubscribed to the AuthStateChange call back
 
 # Features
 

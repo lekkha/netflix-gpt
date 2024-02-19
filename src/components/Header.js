@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/Slices/userSlice";
+import { LOGO } from "../utils/constants";
 
 const Header = () => {
     const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const Header = () => {
     //managing sign-in sign-up [adding user and removing user] action at one place 
     //ALL ROUTING WILL BE DONE FROM HERE ONLY 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 const { uid, email, displayName, photoURL } = user;
                 dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL, }));
@@ -38,6 +39,8 @@ const Header = () => {
             }
         });
 
+        //unsubscribe when component unmounts 
+        return () => unsubscribe();
     }, []);
 
 
@@ -47,7 +50,7 @@ const Header = () => {
         <div className="z-10 w-screen absolute px-8 py-2 bg-gradient-to-b from-black flex justify-between">
             <img
                 className="w-44"
-                src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+                src={LOGO}
                 alt="logo" />
 
             {/* show only when there is a user */}
