@@ -1,16 +1,20 @@
 import { useRef, useState } from "react"
 import Header from "./Header"
 import { checkValidData } from "../utils/validate";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/Slices/userSlice";
 
 
 const Login = () => {
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
+    const name = useRef(null)
     const email = useRef(null)
     const password = useRef(null)
     const handleButtonClick = () => {
@@ -26,8 +30,18 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed up 
                     const user = userCredential.user;
+                    updateProfile(user, { displayName: name.current.value, photoURL: "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" })
+                        .then(() => {
+                            // Profile updated then navigate 
+                            const { uid, email, displayName, photoURL } = auth.currentUser;
+                            dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL, }))
+                            navigate("/browser")
+                        }).catch((error) => {
+                            // if error then
+                            setErrorMessage(error.message)
+
+                        });
                     console.log(user);
-                    navigate("/browser")
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -80,6 +94,7 @@ const Login = () => {
                 </h1>
 
                 {!isSignInForm && <input
+                    ref={name}
                     className="p-2 mt-4 w-full bg-neutral-700"
                     placeholder="Name"
                     type="text" />}
