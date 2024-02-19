@@ -10,7 +10,7 @@ const Header = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((store) => store.user);//to access photo url subs to store
-    console.log(user)
+    // console.log(user)
 
     //no need to dispatch remove user action since on-auth-change api in body.js will automatically
     //remove object on auth change 
