@@ -11,6 +11,8 @@
 - firebase setup
 - deploying our app to production
 - create signup user account
+- implemented sign-in user api
+- Created redux store with userSlice
 
 # Features
 
