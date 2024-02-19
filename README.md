@@ -13,6 +13,9 @@
 - create signup user account
 - implemented sign-in user api
 - Created redux store with userSlice
+- implemented signout
+- implemented update profile api call
+- fetch movie from tmdb
 
 # Features
 
