@@ -35,7 +35,6 @@ const Login = () => {
                             // Profile updated then navigate 
                             const { uid, email, displayName, photoURL } = auth.currentUser;
                             dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL, }))
-                            navigate("/browser")
                         }).catch((error) => {
                             // if error then
                             setErrorMessage(error.message)
@@ -58,7 +57,7 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user)
-                    navigate("/browser")
+
 
                 })
                 .catch((error) => {

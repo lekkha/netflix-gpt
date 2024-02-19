@@ -1,9 +1,12 @@
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { addUser, removeUser } from "../utils/Slices/userSlice";
 
 const Header = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((store) => store.user);//to access photo url subs to store
     console.log(user)
@@ -12,13 +15,34 @@ const Header = () => {
     //remove object on auth change 
 
     const handleSignOut = () => {
-        signOut(auth).then(() => {
-            navigate("/")
-
-        }).catch((error) => {
-            navigate("/error")
-        });
+        signOut(auth)
+            .then(() => { })
+            .catch((error) => {
+                navigate("/error")
+            });
     }
+
+
+    //managing sign-in sign-up [adding user and removing user] action at one place 
+    //ALL ROUTING WILL BE DONE FROM HERE ONLY 
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const { uid, email, displayName, photoURL } = user;
+                dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL, }));
+                navigate("/browser")
+            }
+            else {
+                dispatch(removeUser());
+                navigate("/")
+            }
+        });
+
+    }, []);
+
+
+
+
     return (
         <div className="z-10 w-screen absolute px-8 py-2 bg-gradient-to-b from-black flex justify-between">
             <img
