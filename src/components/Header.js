@@ -4,17 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/Slices/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { toggleSearchView } from "../utils/Slices/gptSlice";
+import { changeLanguage } from "../utils/Slices/configSlice";
 
 const Header = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((store) => store.user);//to access photo url subs to store
+    const showGptSearch = useSelector((store) => store.gpt.showGptSearch)
     // console.log(user)
 
     //no need to dispatch remove user action since on-auth-change api in body.js will automatically
     //remove object on auth change 
-
     const handleSignOut = () => {
         signOut(auth)
             .then(() => { })
@@ -43,7 +45,14 @@ const Header = () => {
         return () => unsubscribe();
     }, []);
 
+    const handleGptSearchClick = () => {
+        dispatch(toggleSearchView());
+    }
 
+    const handleLanguageChange = (e) => {
+        //console.log(e.target.value)
+        dispatch(changeLanguage(e.target.value))
+    }
 
 
     return (
@@ -55,13 +64,30 @@ const Header = () => {
 
             {/* show only when there is a user */}
             {user && <div className="flex p-2 gap-1">
+
+                {showGptSearch && (
+                    <select
+                        className="w-24 h-8 bg-gray-700 text-white rounded-lg"
+                        onChange={handleLanguageChange}
+                    >
+                        {SUPPORTED_LANGUAGES.map((lang) =>
+                            (<option value={lang.identifier} key={lang.identifier}>{lang.name}</option>))}
+                    </select>)
+                }
+                <button
+                    className="w-24 h-8 bg-purple-800 text-white rounded-lg mx-2 cursor-pointer"
+                    onClick={handleGptSearchClick}
+                >{showGptSearch ? "Home Page" : "GPT search"}</button>
+
                 <img
                     className="w-10 h-10"
                     src={user?.photoURL}
                     alt="user-pic" />
+
                 <button
-                    className="w-20 h-8 bg-blue-500 cursor-pointer text-white text-center ml-2"
+                    className="w-20 h-8 bg-blue-500 cursor-pointer text-white text-center ml-2 rounded-lg"
                     onClick={handleSignOut}>Sign Out</button>
+
             </div>}
         </div>
     )
