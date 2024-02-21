@@ -23,3 +23,5 @@ export const SUPPORTED_LANGUAGES = [
     { identifier: "gujarati", name: "Gujarati" },
     { identifier: "bhojpuri", name: "Bhojpuri" }
 ]
+
+export const GEMINI_API_KEY = process.env.REACT_APP_GEMAPI_KEY
