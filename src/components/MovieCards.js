@@ -1,6 +1,12 @@
+
 import { IMG_CDN_URL } from "../utils/constants"
 
-const MovieCards = ({ posterPath }) => {
+
+
+const MovieCards = ({ id, posterPath }) => {
+    //error handling
+    if (!posterPath) return null
+
     return (
         <div className=" w-32 pr-3">
             <img
@@ -11,3 +17,5 @@ const MovieCards = ({ posterPath }) => {
 }
 
 export default MovieCards
+
+
