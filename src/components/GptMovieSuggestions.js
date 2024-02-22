@@ -6,8 +6,7 @@ import MovieList from "./MovieList"
 const GptMovieSuggestions = () => {
 
     const { movieName, movieResults } = useSelector((store) => store.gpt)
-    if (!movieName) return null  //Shimmer UI
-
+    if (!movieName) return null;
 
     return (
         <div className="mt-10 bg-black text-white bg-opacity-85">
