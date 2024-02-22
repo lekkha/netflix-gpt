@@ -58,6 +58,7 @@ const GptSearchBar = () => {
                 <button
                     className=" bg-red-700 text-white col-span-3 my-2 mx-2 rounded-lg"
                     onClick={handleGptSearchClick}>{lang[langkey].search}</button>
+                <h6 className="flex col-span-12 ml-8 text-sm text-gray-400" >The movie sugestions might take some time to load </h6>
             </form>
         </div>
     )
