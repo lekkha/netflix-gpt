@@ -1,5 +1,9 @@
 # Netflix-Gpt
 
+
+https://github.com/lekkha/netflix-gpt/assets/77457600/091b313c-92b6-45c8-989c-c78325d4d479
+
+
 - create react app
 - configured TailwindCSS
 - built header
